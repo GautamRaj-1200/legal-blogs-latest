@@ -22,6 +22,9 @@
       "pnpm --prefix client run lint:fix",
       "pnpm --prefix client run format:fix"
     ],
+    "client/**/*.{css,scss}": [
+      "pnpm --prefix client run format:fix"
+    ],
     "app/**/*.{js,ts}": [
       "pnpm --prefix app run lint:fix",
       "pnpm --prefix app run format:fix"
