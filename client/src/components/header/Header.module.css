@@ -1,0 +1,108 @@
+.header {
+  background-color: #1b1818;
+  font-family: monospace;
+}
+.navbar {
+  color: #fff;
+  display: flex;
+  place-items: center;
+  justify-content: space-evenly;
+  padding: 0.8rem 1rem;
+}
+.navbar__logo {
+  color: rgb(236, 236, 93);
+}
+.navbar__list {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.navbar__item {
+  list-style: none;
+}
+.navbar__link {
+  text-decoration: none;
+  color: #fff;
+}
+.navbar__search-container {
+  display: flex;
+  gap: 0.5rem;
+}
+.navbar__search {
+  width: 100%;
+  height: 100%;
+  padding: 0.4rem 0.5rem;
+  border: none;
+  outline: none;
+  background-color: #282222;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+.navbar__search:focus {
+  border: 1px solid #dbd4d4;
+}
+.navbar__search-btn {
+  padding: 0.3rem 0.6rem;
+  background-color: rgb(236, 236, 93);
+  border: none;
+  outline: none;
+  font-weight: 600;
+  border-radius: 0.3rem;
+}
+.navbar__hamburger {
+  display: none;
+}
+@media screen and (max-width: 886px) {
+  .navbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .navbar__list {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 624px) {
+  .navbar__list {
+    flex-direction: column;
+    transform: translateX(-100vw);
+    background-color: #1b1818;
+    width: 100vw;
+    position: absolute;
+    top: 5.56875rem; /*89.1px*/
+    transition: transform 0.3s ease-in-out;
+    padding-bottom: 0.5rem;
+  }
+  .active {
+    transform: translateX(0);
+  }
+  .navbar__search {
+    width: 8rem;
+  }
+  .navbar__hamburger {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+  }
+  .navbar__hamburger-bar {
+    width: 2rem;
+    height: 0.2rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+
+  /* Hamburger bar animation */
+  .navbar__hamburger-bar1.active {
+    transform: rotate(45deg) translateY(1rem);
+  }
+  .navbar__hamburger-bar2.active {
+    opacity: 0; /* Hide the middle bar */
+  }
+  .navbar__hamburger-bar3.active {
+    transform: rotate(-45deg) translateY(-1rem);
+  }
+}

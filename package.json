@@ -1,0 +1,30 @@
+{
+  "name": "legal-blogs-latest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0"
+  },
+  "lint-staged": {
+    "client/**/*.{js,jsx,ts,tsx}": [
+      "pnpm --prefix client run lint:fix",
+      "pnpm --prefix client run format:fix"
+    ],
+    "app/**/*.{js,ts}": [
+      "pnpm --prefix app run lint:fix",
+      "pnpm --prefix app run format:fix"
+    ]
+  }
+}
