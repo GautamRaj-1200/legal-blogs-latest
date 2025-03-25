@@ -6,12 +6,14 @@ function App() {
   return (
     <>
       <div className="app-container">
-        <Header />
-        <Routes>
-          <Route path="/" element={''} />
-          <Route path="/about" element={''} />
-        </Routes>
-        <Footer />
+        <div className="content-container">
+          <Header />
+          <Routes>
+            <Route path="/" element={''} />
+            <Route path="/about" element={''} />
+          </Routes>
+          <Footer />
+        </div>
       </div>
     </>
   );

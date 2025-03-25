@@ -1,0 +1,26 @@
+.btn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 3rem;
+  font-family: 'Plus Jakarta Sans';
+  padding: 0.8rem 1.6rem;
+  font-size: var(--semibold-s7-size);
+  min-width: 13rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.primary {
+  background-color: var(--color-orange);
+}
+.outlined {
+  background-color: transparent;
+  border: 1px solid var(--color-orange);
+  color: var(--color-orange);
+}
+.transparent {
+  background-color: transparent;
+}
