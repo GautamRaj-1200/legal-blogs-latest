@@ -68,14 +68,21 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--color-white-2);
 }
 
 li {
   list-style-type: none;
 }
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .app-container {
   width: 100%;
   min-height: 100vh;
+  background-color: var(--color-dark);
 }
 .content-container {
   max-width: 90rem;

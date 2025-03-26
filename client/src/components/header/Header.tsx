@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Header.module.css';
+import { NavLink } from 'react-router-dom';
+import legalBlogsLogo from '../../assets/legal-blogs-by-rohan-logo.svg';
 const Header = () => {
   const [navbarVisible, setNavbarVisible] = useState<boolean>(false);
   const navbarRef = useRef<HTMLUListElement | null>(null);
@@ -37,49 +39,81 @@ const Header = () => {
       <header className={styles.header}>
         <nav className={styles.navbar}>
           <div className={styles.navbar__logo}>
-            <h1>Brand Logo</h1>
+            <img src={legalBlogsLogo} alt="Logo of the application" />
           </div>
           <ul
             ref={navbarRef}
             className={`${styles.navbar__list}  ${navbarVisible ? styles.active : ''}`}
           >
             <li className={styles.navbar__item}>
-              <a href="#" className={styles.navbar__link} onClick={handleLinkClick}>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                }
+                onClick={handleLinkClick}
+              >
                 Home
-              </a>
+              </NavLink>
             </li>
             <li className={styles.navbar__item}>
-              <a href="#" className={styles.navbar__link} onClick={handleLinkClick}>
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                }
+                onClick={handleLinkClick}
+              >
                 About
-              </a>
+              </NavLink>
             </li>
             <li className={styles.navbar__item}>
-              <a href="#" className={styles.navbar__link} onClick={handleLinkClick}>
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                }
+                onClick={handleLinkClick}
+              >
                 Contact
-              </a>
+              </NavLink>
             </li>
             <li className={styles.navbar__item}>
-              <a href="#" className={styles.navbar__link} onClick={handleLinkClick}>
+              <NavLink
+                to="/blogs"
+                className={({ isActive }) =>
+                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                }
+                onClick={handleLinkClick}
+              >
                 Blogs
-              </a>
+              </NavLink>
             </li>
             <li className={styles.navbar__item}>
-              <a href="#" className={styles.navbar__link} onClick={handleLinkClick}>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                }
+                onClick={handleLinkClick}
+              >
                 {' '}
                 SignUp
-              </a>
+              </NavLink>
             </li>
             <li className={styles.navbar__item}>
-              <a href="#" className={styles.navbar__link} onClick={handleLinkClick}>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                }
+                onClick={handleLinkClick}
+              >
                 {' '}
                 Login
-              </a>
+              </NavLink>
             </li>
           </ul>
-          <div className={styles['navbar__search-container']}>
-            <input placeholder="search" className={styles.search} />
-            <button className={styles['navbar__search-btn']}>Search</button>
-          </div>
           <div onClick={toggleNavbar} className={styles.navbar__hamburger} ref={hamburgerRef}>
             <div
               className={`${styles['navbar__hamburger-bar']} ${styles['navbar__hamburger-bar1']} ${
