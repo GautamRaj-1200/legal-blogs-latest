@@ -41,6 +41,9 @@
 }
 
 @media screen and (max-width: 624px) {
+  .navbar {
+    align-items: flex-start;
+  }
   .navbar__list {
     flex-direction: column;
     transform: translateX(-100vw);
