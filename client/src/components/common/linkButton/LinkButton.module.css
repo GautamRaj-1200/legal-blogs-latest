@@ -1,4 +1,4 @@
-.btn {
+.linkBtn {
   border: none;
   outline: none;
   background-color: transparent;
@@ -12,10 +12,12 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  text-decoration: none;
   font-weight: 500;
 }
 .primary {
   background-color: var(--color-orange);
+  color: var(--color-dark);
 }
 .outlined {
   background-color: transparent;

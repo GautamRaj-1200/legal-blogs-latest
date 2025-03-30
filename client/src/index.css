@@ -70,7 +70,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--color-white-2);
 }
-
 li {
   list-style-type: none;
 }

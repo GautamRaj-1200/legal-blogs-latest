@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Header.module.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import legalBlogsLogo from '../../assets/legal-blogs-by-rohan-logo.svg';
+import LinkButton from '../common/linkButton/LinkButton';
 const Header = () => {
   const [navbarVisible, setNavbarVisible] = useState<boolean>(false);
   const navbarRef = useRef<HTMLUListElement | null>(null);
@@ -39,7 +40,9 @@ const Header = () => {
       <header className={styles.header}>
         <nav className={styles.navbar}>
           <div className={styles.navbar__logo}>
-            <img src={legalBlogsLogo} alt="Logo of the application" />
+            <Link to="/">
+              <img src={legalBlogsLogo} alt="Logo of the application" />
+            </Link>
           </div>
           <ul
             ref={navbarRef}
@@ -90,28 +93,14 @@ const Header = () => {
               </NavLink>
             </li>
             <li className={styles.navbar__item}>
-              <NavLink
-                to="/register"
-                className={({ isActive }) =>
-                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
-                }
-                onClick={handleLinkClick}
-              >
-                {' '}
+              <LinkButton to="/register" variant="outlined" onClick={handleLinkClick}>
                 SignUp
-              </NavLink>
+              </LinkButton>
             </li>
             <li className={styles.navbar__item}>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
-                }
-                onClick={handleLinkClick}
-              >
-                {' '}
+              <LinkButton to="/login" variant="primary" onClick={handleLinkClick}>
                 Login
-              </NavLink>
+              </LinkButton>
             </li>
           </ul>
           <div onClick={toggleNavbar} className={styles.navbar__hamburger} ref={hamburgerRef}>
