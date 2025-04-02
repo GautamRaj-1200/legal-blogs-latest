@@ -6,52 +6,79 @@ import styles from './Signup.module.css';
 import { FaUser } from 'react-icons/fa';
 
 const Signup = () => {
-  const [nameValue, setNameValue] = useState<string>('');
-  const [emailValue, setEmailValue] = useState<string>('');
-  const [passwordValue, setPasswordValue] = useState<string>('');
-  const [confirmPasswordValue, setConfirmPasswordValue] = useState<string>('');
+  const [formValues, setFormValues] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNameValue(event.target.value);
-  };
-  const handleNameBlur = () => {
-    console.log('Handle Name Blur');
-  };
-  const handleNameFocus = () => {
-    console.log('Handle Name Focus');
-  };
+  const [errors, setErrors] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmailValue(event.target.value);
-  };
-  const handleEmailBlur = () => {
-    console.log('Handle Email Blur');
-  };
-  const handleEmailFocus = () => {
-    console.log('Handle Email Blur');
+  const hints = {
+    fullName: 'Should be at least 3 characters',
+    email: 'Enter a valid email address.',
+    password: 'Use at least 8 characters, including a number and symbol.',
+    confirmPassword: 'Must match the password.',
   };
 
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPasswordValue(event.target.value);
-  };
-  const handlePasswordBlur = () => {
-    console.log('Handle Password Blur');
-  };
-  const handlePasswordFocus = () => {
-    console.log('Handle Password Focus');
+  const [showHint, setShowHint] = useState({
+    fullName: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
-  const handleConfirmPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPasswordValue(event.target.value);
+  const validateField = (name: string, value: string) => {
+    let error = '';
+    if (name === 'fullName' && value.length < 3) {
+      error = 'Invalid Name';
+    }
+    if (name === 'email' && !/^\S+@\S+\.\S+$/.test(value)) {
+      error = 'Invalid email format';
+    }
+    if (name === 'password' && value.length < 8) {
+      error = 'Password must be at least 8 characters long';
+    }
+    if (name === 'confirmPassword' && value !== formValues.password) {
+      error = 'Passwords do not match';
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
   };
 
-  const handleConfirmPasswordBlur = () => {
-    console.log('Handle ConfirmPassword Blur');
-  };
-  const handleConfirmPasswordFocus = () => {
-    console.log('Handle ConfirmPassword Focus');
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    setShowHint((prevHints) => ({
+      ...prevHints,
+      [name]: true,
+    }));
   };
 
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setShowHint((prevHints) => ({
+      ...prevHints,
+      [name]: false,
+    }));
+    validateField(name, value);
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
@@ -80,45 +107,45 @@ const Signup = () => {
                 type="text"
                 name="fullName"
                 label="Full Name"
-                error={''}
-                hint={''}
-                value={nameValue}
-                onChange={handleNameChange}
-                onBlur={handleNameBlur}
-                onFocus={handleNameFocus}
+                error={errors.fullName}
+                hint={showHint.fullName ? hints.fullName : ''}
+                value={formValues.fullName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
               />
               <CustomInput
                 type="email"
                 name="email"
                 label="Your email"
-                error={''}
-                hint={''}
-                value={emailValue}
-                onChange={handleEmailChange}
-                onBlur={handleEmailBlur}
-                onFocus={handleEmailFocus}
+                error={errors.email}
+                hint={showHint.email ? hints.email : ''}
+                value={formValues.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
               />
               <CustomInput
                 type="password"
                 name="password"
                 label="Password"
-                error={''}
-                hint={''}
-                value={passwordValue}
-                onChange={handlePasswordChange}
-                onBlur={handlePasswordBlur}
-                onFocus={handlePasswordFocus}
+                error={errors.password}
+                hint={showHint.password ? hints.password : ''}
+                value={formValues.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
               />
               <CustomInput
                 type="password"
-                name="password"
+                name="confirmPassword"
                 label="Confirm Password"
-                error={''}
-                hint={''}
-                value={confirmPasswordValue}
-                onChange={handleConfirmPasswordChange}
-                onBlur={handleConfirmPasswordBlur}
-                onFocus={handleConfirmPasswordFocus}
+                error={errors.confirmPassword}
+                hint={showHint.confirmPassword ? hints.confirmPassword : ''}
+                value={formValues.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
               />
               <div className={styles.signup__terms}>
                 <div className={styles.signup__button}>
