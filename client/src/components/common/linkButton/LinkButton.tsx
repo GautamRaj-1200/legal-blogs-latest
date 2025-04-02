@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './LinkButton.module.css';
-import { GoArrowRight } from 'react-icons/go';
-
+import { FaArrowRight } from 'react-icons/fa';
 type ButtonVariant = 'primary' | 'outlined' | 'transparent';
 
 interface ButtonProps {
@@ -29,7 +28,7 @@ const LinkButton: React.FC<ButtonProps> = ({
       onClick={onClick}
     >
       {children}
-      <GoArrowRight />
+      <FaArrowRight />
     </Link>
   );
 };

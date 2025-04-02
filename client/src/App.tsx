@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
+import Signup from './components/signup/Signup';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
             <Route path="/" element={''} />
             <Route path="/about" element={''} />
           </Routes>
+          <Signup />
           <Footer />
         </div>
       </div>

@@ -1,6 +1,5 @@
 import styles from './Button.module.css';
-import { GoArrowRight } from 'react-icons/go';
-
+import { FaArrowRight } from 'react-icons/fa';
 type ButtonVariant = 'primary' | 'outlined' | 'transparent';
 
 interface ButtonProps {
@@ -29,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
       aria-disabled={disabled}
     >
       {children}
-      <GoArrowRight />
+      <FaArrowRight />
     </button>
   );
 };

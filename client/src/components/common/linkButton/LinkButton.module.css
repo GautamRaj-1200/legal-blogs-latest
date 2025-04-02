@@ -6,7 +6,7 @@
   font-family: 'Plus Jakarta Sans';
   padding: 0.8rem 1.6rem;
   font-size: var(--semibold-s7-size);
-  min-width: 9rem;
+  width: 100%;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -26,4 +26,8 @@
 }
 .transparent {
   background-color: transparent;
+  color: inherit;
+  padding: 0;
+  width: auto;
+  color: var(--color-orange);
 }
