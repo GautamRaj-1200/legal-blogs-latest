@@ -1,0 +1,16 @@
+.verify__email-otp {
+  max-width: 30rem;
+  height: 20rem;
+  margin: 2.5rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.verify__email-otp h2 {
+  font-size: var(--regular-b2-size);
+}
+.btn__container {
+  width: 15rem;
+}
