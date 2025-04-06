@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
-import Signup from './components/signup/Signup';
+import ForgotPassword from './components/forgotPassword/ForgotPassword';
 
 function App() {
   return (
@@ -12,9 +11,8 @@ function App() {
           <Routes>
             <Route path="/" element={''} />
             <Route path="/about" element={''} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Routes>
-          <Signup />
-          <Footer />
         </div>
       </div>
     </>
