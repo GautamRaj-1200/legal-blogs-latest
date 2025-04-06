@@ -1,7 +1,7 @@
 .signup {
   max-width: 42rem;
   margin: 0 auto;
-  border: 1px solid var(--color-white);
+  /* border: 1px solid var(--color-white); */
   padding: 1.75rem 0; /*28px*/
 }
 
