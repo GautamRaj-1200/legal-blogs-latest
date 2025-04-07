@@ -1,0 +1,14 @@
+.not__found {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+.not__found h1 {
+  color: var(--color-gold);
+}
+.not__found-img-container {
+  height: 40rem;
+}
