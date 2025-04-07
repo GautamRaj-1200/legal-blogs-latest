@@ -3,7 +3,7 @@ import styles from './Login.module.css';
 
 const Login = () => {
   return (
-    <section className={styles.login}>
+    <section className={`${styles.login} full-width-bg`}>
       <Signin />
     </section>
   );

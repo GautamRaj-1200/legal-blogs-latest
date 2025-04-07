@@ -5,4 +5,15 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  min-height: calc(100vh - 5.75rem);
+}
+@media screen and (max-width: 886px) {
+  .register {
+    min-height: calc(100vh - 9.2875rem);
+  }
+}
+@media screen and (max-width: 624px) {
+  .register {
+    min-height: calc(100vh - 9.2875rem);
+  }
 }

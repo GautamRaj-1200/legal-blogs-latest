@@ -4,6 +4,8 @@
   place-items: center;
   justify-content: space-between;
   padding: 1rem 0;
+  position: relative;
+  z-index: 100;
 }
 .navbar__logo {
   color: var(--color-white);

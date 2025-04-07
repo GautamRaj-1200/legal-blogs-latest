@@ -88,6 +88,14 @@ img {
   margin: 0 auto;
   padding: 0 1rem;
 }
+.full-width-bg {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+}
 
 @media screen and (max-width: 600px) {
   .content-container {

@@ -4,7 +4,7 @@ import styles from './Register.module.css';
 const Register = () => {
   return (
     <>
-      <section className={styles.register}>
+      <section className={`${styles.register} full-width-bg`}>
         <Signup />
       </section>
     </>
