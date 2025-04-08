@@ -50,7 +50,7 @@
   }
   .navbar__list {
     flex-direction: column;
-    transform: translateX(-100vw);
+    transform: translateX(-102vw);
     background-color: var(--color-dark);
     width: 100vw;
     position: absolute;
@@ -59,7 +59,7 @@
     padding-bottom: 0.5rem;
   }
   .active {
-    transform: translateX(0);
+    transform: translateX(-10px);
   }
   .navbar__search {
     width: 8rem;

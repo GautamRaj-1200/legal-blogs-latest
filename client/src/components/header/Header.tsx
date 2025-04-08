@@ -38,89 +38,91 @@ const Header = () => {
   return (
     <>
       <header className={styles.header}>
-        <nav className={styles.navbar}>
-          <div className={styles.navbar__logo}>
-            <Link to="/">
-              <img src={legalBlogsLogo} alt="Logo of the application" />
-            </Link>
-          </div>
-          <ul
-            ref={navbarRef}
-            className={`${styles.navbar__list}  ${navbarVisible ? styles.active : ''}`}
-          >
-            <li className={styles.navbar__item}>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
-                }
-                onClick={handleLinkClick}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className={styles.navbar__item}>
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
-                }
-                onClick={handleLinkClick}
-              >
-                About
-              </NavLink>
-            </li>
-            <li className={styles.navbar__item}>
-              <NavLink
-                to="/contact"
-                className={({ isActive }) =>
-                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
-                }
-                onClick={handleLinkClick}
-              >
-                Contact
-              </NavLink>
-            </li>
-            <li className={styles.navbar__item}>
-              <NavLink
-                to="/blogs"
-                className={({ isActive }) =>
-                  `${styles.navbar__link} ${isActive ? styles.active : ''}`
-                }
-                onClick={handleLinkClick}
-              >
-                Blogs
-              </NavLink>
-            </li>
-            <li className={styles.navbar__item}>
-              <LinkButton to="/register" variant="outlined" onClick={handleLinkClick}>
-                SignUp
-              </LinkButton>
-            </li>
-            <li className={styles.navbar__item}>
-              <LinkButton to="/login" variant="primary" onClick={handleLinkClick}>
-                Login
-              </LinkButton>
-            </li>
-          </ul>
-          <div onClick={toggleNavbar} className={styles.navbar__hamburger} ref={hamburgerRef}>
-            <div
-              className={`${styles['navbar__hamburger-bar']} ${styles['navbar__hamburger-bar1']} ${
-                navbarVisible ? styles.active : ''
-              }`}
-            ></div>
-            <div
-              className={`${styles['navbar__hamburger-bar']} ${styles['navbar__hamburger-bar2']} ${
-                navbarVisible ? styles.active : ''
-              }`}
-            ></div>
-            <div
-              className={`${styles['navbar__hamburger-bar']} ${styles['navbar__hamburger-bar3']} ${
-                navbarVisible ? styles.active : ''
-              }`}
-            ></div>
-          </div>
-        </nav>
+        <div className="content-container">
+          <nav className={styles.navbar}>
+            <div className={styles.navbar__logo}>
+              <Link to="/">
+                <img src={legalBlogsLogo} alt="Logo of the application" />
+              </Link>
+            </div>
+            <ul
+              ref={navbarRef}
+              className={`${styles.navbar__list}  ${navbarVisible ? styles.active : ''}`}
+            >
+              <li className={styles.navbar__item}>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                  }
+                  onClick={handleLinkClick}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li className={styles.navbar__item}>
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) =>
+                    `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                  }
+                  onClick={handleLinkClick}
+                >
+                  About
+                </NavLink>
+              </li>
+              <li className={styles.navbar__item}>
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                  }
+                  onClick={handleLinkClick}
+                >
+                  Contact
+                </NavLink>
+              </li>
+              <li className={styles.navbar__item}>
+                <NavLink
+                  to="/blogs"
+                  className={({ isActive }) =>
+                    `${styles.navbar__link} ${isActive ? styles.active : ''}`
+                  }
+                  onClick={handleLinkClick}
+                >
+                  Blogs
+                </NavLink>
+              </li>
+              <li className={styles.navbar__item}>
+                <LinkButton to="/register" variant="outlined" onClick={handleLinkClick}>
+                  SignUp
+                </LinkButton>
+              </li>
+              <li className={styles.navbar__item}>
+                <LinkButton to="/login" variant="primary" onClick={handleLinkClick}>
+                  Login
+                </LinkButton>
+              </li>
+            </ul>
+            <div onClick={toggleNavbar} className={styles.navbar__hamburger} ref={hamburgerRef}>
+              <div
+                className={`${styles['navbar__hamburger-bar']} ${styles['navbar__hamburger-bar1']} ${
+                  navbarVisible ? styles.active : ''
+                }`}
+              ></div>
+              <div
+                className={`${styles['navbar__hamburger-bar']} ${styles['navbar__hamburger-bar2']} ${
+                  navbarVisible ? styles.active : ''
+                }`}
+              ></div>
+              <div
+                className={`${styles['navbar__hamburger-bar']} ${styles['navbar__hamburger-bar3']} ${
+                  navbarVisible ? styles.active : ''
+                }`}
+              ></div>
+            </div>
+          </nav>
+        </div>
       </header>
     </>
   );
