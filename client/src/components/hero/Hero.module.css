@@ -1,0 +1,7 @@
+.hero {
+  background-image: url('../../assets/gavel.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: calc(100vh - 5.75rem);
+}

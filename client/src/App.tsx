@@ -6,7 +6,7 @@ import ResetPassword from './components/resetPassword/ResetPassword';
 import Register from './page/register/Register';
 import Login from './page/login/Login';
 import PageNotFound from './page/pageNotFound/PageNotFound';
-import Blogs from './components/blogs/Blogs';
+import Hero from './components/hero/Hero';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-        <Blogs />
+        <Hero />
       </div>
     </>
   );
