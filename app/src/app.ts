@@ -21,8 +21,10 @@ app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'OK' });
 });
 
-import userRoutes from './routes/auth.routes.js';
-app.use('/api/v1/auth', userRoutes);
+import authRoutes from './routes/auth.routes.js';
+import userRoutes from './routes/users.routes.js';
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
 
 app.use(errorHandler);
 
