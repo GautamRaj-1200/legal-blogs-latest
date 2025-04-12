@@ -10,4 +10,7 @@ export interface IUser {
   isVerified: boolean;
   isActive: boolean;
   role: 'viewer' | 'author' | 'admin';
+  generateAccessToken(): string;
+  generateRefreshToken(): string;
+  isPasswordValid(password: string): Promise<boolean>;
 }
