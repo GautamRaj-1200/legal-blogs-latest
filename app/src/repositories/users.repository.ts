@@ -8,8 +8,8 @@ export const create = async (data: SignupInput): Promise<IUser> => {
   return await user.save();
 };
 
-export const findById = async (id: string): Promise<IUser | null> => {
-  return await User.findById(id);
+export const findById = async (id: string, projection: string = ''): Promise<IUser | null> => {
+  return await User.findById(id).select(projection);
 };
 
 export const findByEmail = async (email: string) => {

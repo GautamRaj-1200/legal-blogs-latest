@@ -11,6 +11,13 @@ export const createUser = async (data: SignupInput) => {
   }
 
   const newUser = await userRepo.create(data);
+  const createdUser = await userRepo.findById(
+    newUser._id,
+    '-password -refreshToken -isVerified -isActive -role -createdAt -updatedAt'
+  );
 
-  return newUser;
+  if (!createdUser) {
+    throw new ApiError(500, 'Something went wrong while registering the user');
+  }
+  return createdUser;
 };
