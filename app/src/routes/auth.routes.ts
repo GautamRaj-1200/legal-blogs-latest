@@ -1,12 +1,19 @@
 import { Router } from 'express';
-import { newAccessToken, registerUser } from '../controllers/auth.controller.js';
+import {
+  newAccessToken,
+  registerUser,
+  resendOtp,
+  verifyOtp,
+} from '../controllers/auth.controller.js';
 import { loginUser } from '../controllers/auth.controller.js';
 import { authenticateRefreshToken } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 
-router.post('/register', registerUser);
-router.post('/login', loginUser);
-router.post('/access-token', authenticateRefreshToken, newAccessToken);
+router.post('/users', registerUser);
+router.post('/sessions', loginUser);
+router.post('/tokens', authenticateRefreshToken, newAccessToken);
+router.post('/otp/validations', verifyOtp);
+router.post('/otp/deliveries', resendOtp);
 
 export default router;

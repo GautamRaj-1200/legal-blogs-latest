@@ -1,14 +1,5 @@
-import { ApiResponse } from './apiResponse';
-import { ApiError } from './apiError';
 import nodemailer from 'nodemailer';
-import config from '../config/config';
-import { Response } from 'express';
-
-interface emailOptions {
-  to: string;
-  subject: string;
-  html: string;
-}
+import config from '../config/config.js';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -18,20 +9,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendingEmail = async ({ to, subject, html }: emailOptions, res: Response) => {
+export const sendingEmail = async (to: string, subject: string, html: string) => {
   const mailOptions = {
     from: config.NODEMAILER_EMAIL,
     to,
     subject,
     html,
   };
-
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    return ApiResponse.success(info, 'Email sent successfully').send(res);
-  } catch (error) {
-    console.error(error);
-    const apiError = new ApiError(500, 'Failed to send email', ['Email sending error']);
-    return apiError.toResponse().send(res);
-  }
+  const info = await transporter.sendMail(mailOptions);
+  return info;
 };

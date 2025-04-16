@@ -47,3 +47,16 @@ export const newAccessToken = asyncHandler(async (req: AuthenticatedRequest, res
   });
   ApiResponse.success(null, 'Access Token refreshed successfully', 200).send(res);
 });
+
+export const verifyOtp = asyncHandler(async (req: Request, res: Response) => {
+  const { email, otp } = req.body;
+  await authService.verifyOtpService(email, otp);
+  ApiResponse.success(null, 'Email Verified Successfully', 200).send(res);
+});
+
+export const resendOtp = asyncHandler(async (req: Request, res: Response) => {
+  const { email } = req.body;
+
+  const result = await authService.resendOtpService(email);
+  ApiResponse.success(result, 'OTP sent successfully', 200).send(res);
+});
