@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema<IUser>(
       required: true,
       trim: true,
       lowercase: true,
+      unique: true,
     },
     password: {
       type: String,
@@ -62,6 +63,12 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.isPasswordValid = async function (password: string) {
   return await bcrypt.compare(password, this.password);
+};
+userSchema.methods.isUserVerified = function () {
+  return this.isVerified;
+};
+userSchema.methods.isUserActive = async function () {
+  return this.isActive;
 };
 userSchema.methods.generateAccessToken = function () {
   return jwt.sign(
