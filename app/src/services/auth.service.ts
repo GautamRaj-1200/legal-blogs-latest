@@ -31,10 +31,15 @@ export const loginUser = async (data: SigninInput) => {
     throw new ApiError(404, 'User does not exist');
   }
 
-  const isPasswordValid = user.isPasswordValid(password);
+  const isPasswordValid = await user.isPasswordValid(password);
 
   if (!isPasswordValid) {
     throw new ApiError(401, 'Invalid User Credentials');
+  }
+
+  const verified = user.isUserVerified();
+  if (!verified) {
+    throw new ApiError(403, 'User is not verified');
   }
 
   const accessToken = user.generateAccessToken();
@@ -51,4 +56,18 @@ export const loginUser = async (data: SigninInput) => {
     accessToken,
     refreshToken,
   };
+};
+
+export const refreshAccessToken = async (userId: string | undefined) => {
+  if (!userId) {
+    throw new ApiError(401, 'User ID is required to refresh access token');
+  }
+
+  const user = await userRepo.findById(userId);
+  if (!user) {
+    throw new ApiError(404, 'User not found');
+  }
+
+  const accessToken = user.generateAccessToken();
+  return { accessToken };
 };

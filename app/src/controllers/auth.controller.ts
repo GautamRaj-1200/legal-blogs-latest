@@ -4,6 +4,8 @@ import { ApiResponse } from '../utils/apiResponse.js';
 import * as authService from '../services/auth.service.js';
 import { signinSchema, signupSchema } from '../schemas/users.schema.js';
 import config from '../config/config.js';
+import { refreshAccessToken } from '../services/auth.service.js';
+import { AuthenticatedRequest } from '../middlewares/auth.middleware.js';
 
 export const registerUser = asyncHandler(async (req: Request, res: Response) => {
   const validatedData = signupSchema.parse(req.body);
@@ -31,4 +33,17 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
     });
 
   ApiResponse.success(loggedInUser, 'Login successful', 200).send(res);
+});
+
+export const newAccessToken = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  console.log('Inside new access token');
+  const userId = req.user?._id;
+  const accessToken = await refreshAccessToken(userId);
+  res.cookie('accessToken', accessToken, {
+    httpOnly: true,
+    secure: config.ENV === 'production', // only on HTTPS in production
+    sameSite: 'none',
+    maxAge: 60 * 1000, // 1 min
+  });
+  ApiResponse.success(null, 'Access Token refreshed successfully', 200).send(res);
 });
