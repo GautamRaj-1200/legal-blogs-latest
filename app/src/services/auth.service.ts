@@ -146,3 +146,45 @@ export const logoutUserService = async (userId: string) => {
   await userRepo.clearRefreshToken(userId);
   return { message: 'Logged out successfully' };
 };
+
+export const forgotPasswordService = async (email: string) => {
+  const user = await userRepo.findByEmail(email);
+  if (!user) {
+    throw new ApiError(404, 'No account associated with this email');
+  }
+
+  const otp = crypto.randomInt(100000, 1000000);
+  const otpExpiry = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+
+  try {
+    const info = await sendingEmail(
+      email,
+      'Reset Your Password',
+      `<h3>Hello ${user.firstName}</h3><p>Use the OTP <strong>${otp}</strong> to reset your password. It will expire in 15 minutes.</p>`
+    );
+
+    await userRepo.updateOtp(user._id, otp, otpExpiry);
+    console.log(`Password reset OTP sent to ${email}: ${info.response}`);
+  } catch (error) {
+    console.error(`Failed to send reset OTP to ${email}`, error);
+    throw new ApiError(500, 'Failed to send reset OTP');
+  }
+
+  return { message: 'OTP sent for password reset' };
+};
+
+export const resetPasswordService = async (email: string, otp: number, newPassword: string) => {
+  const user = await userRepo.findByEmail(email);
+  const now = new Date();
+
+  if (!user || user.otp !== otp || !user.otpExpiry || user.otpExpiry < now) {
+    throw new ApiError(403, 'Invalid or expired OTP');
+  }
+
+  user.password = newPassword;
+  user.otp = undefined;
+  user.otpExpiry = undefined;
+  await user.save();
+
+  return { message: 'Password has been reset successfully' };
+};

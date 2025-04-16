@@ -74,3 +74,19 @@ export const logoutUser = asyncHandler(async (req: AuthenticatedRequest, res: Re
 
   ApiResponse.success(null, 'User signed out successfully', 200).send(res);
 });
+
+export const forgotPassword = asyncHandler(async (req: Request, res: Response) => {
+  const { email } = req.body;
+  if (!email) throw new ApiError(400, 'Email is required');
+  const result = await authService.forgotPasswordService(email);
+  ApiResponse.success(result, 'OTP sent to email', 200).send(res);
+});
+
+export const resetPassword = asyncHandler(async (req: Request, res: Response) => {
+  const { email, otp, newPassword } = req.body;
+  if (!email || !otp || !newPassword) {
+    throw new ApiError(400, 'Email, OTP, and new password are required');
+  }
+  const result = await authService.resetPasswordService(email, otp, newPassword);
+  ApiResponse.success(result, 'Password reset successful', 200).send(res);
+});
