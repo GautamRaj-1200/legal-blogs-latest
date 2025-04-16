@@ -13,4 +13,6 @@ export interface IUser {
   generateAccessToken(): string;
   generateRefreshToken(): string;
   isPasswordValid(password: string): Promise<boolean>;
+  isUserVerified(): boolean;
+  isUserActive(): boolean;
 }
