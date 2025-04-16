@@ -6,7 +6,8 @@ import ResetPassword from './components/resetPassword/ResetPassword';
 import Register from './page/register/Register';
 import Login from './page/login/Login';
 import PageNotFound from './page/pageNotFound/PageNotFound';
-import Hero from './components/hero/Hero';
+import { ToastContainer } from 'react-toastify';
+// import Hero from './components/hero/Hero';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-        <Hero />
+        <ToastContainer position="top-right" autoClose={3000} />
+        {/* <Hero /> */}
       </div>
     </>
   );
