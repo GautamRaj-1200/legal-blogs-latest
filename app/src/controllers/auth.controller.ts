@@ -6,6 +6,7 @@ import { signinSchema, signupSchema } from '../schemas/users.schema.js';
 import config from '../config/config.js';
 import { refreshAccessToken } from '../services/auth.service.js';
 import { AuthenticatedRequest } from '../middlewares/auth.middleware.js';
+import { ApiError } from '../utils/apiError.js';
 
 export const registerUser = asyncHandler(async (req: Request, res: Response) => {
   const validatedData = signupSchema.parse(req.body);
@@ -59,4 +60,17 @@ export const resendOtp = asyncHandler(async (req: Request, res: Response) => {
 
   const result = await authService.resendOtpService(email);
   ApiResponse.success(result, 'OTP sent successfully', 200).send(res);
+});
+
+export const logoutUser = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  const userId = req.user?._id;
+  if (!userId) {
+    throw new ApiError(400, 'User ID is required to logout');
+  }
+  await authService.logoutUserService(userId);
+
+  // Clear cookies
+  res.clearCookie('accessToken').clearCookie('refreshToken');
+
+  ApiResponse.success(null, 'User signed out successfully', 200).send(res);
 });

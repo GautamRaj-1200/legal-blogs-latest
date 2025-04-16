@@ -140,3 +140,9 @@ export const resendOtpService = async (email: string) => {
 
   return { message: 'OTP has been resent successfully' };
 };
+
+export const logoutUserService = async (userId: string) => {
+  if (!userId) throw new ApiError(400, 'User ID is required to logout');
+  await userRepo.clearRefreshToken(userId);
+  return { message: 'Logged out successfully' };
+};
