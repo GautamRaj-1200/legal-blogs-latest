@@ -90,8 +90,7 @@ const Signin = () => {
     try {
       const response = await instance.post<SigninResponse>('/auth/sessions', formValues);
       toast.success(response.data.message);
-      toast.success('Logged in successfully!');
-      await navigate('/dashboard');
+      await navigate('/');
     } catch (error) {
       let errorMsg = 'Login failed';
       if (isAxiosError<SigninResponse>(error)) {
