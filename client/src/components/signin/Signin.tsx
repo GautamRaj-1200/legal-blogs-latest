@@ -4,8 +4,19 @@ import LinkButton from '../common/linkButton/LinkButton';
 import CustomInput from '../common/input/CustomInput';
 import Button from '../common/button/Button';
 import { ChangeEvent, useState } from 'react';
+import { instance } from '../../api/apiInstance';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { isAxiosError } from 'axios';
+
+interface SigninResponse {
+  message: string;
+}
 
 const Signin = () => {
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
@@ -63,9 +74,38 @@ const Signin = () => {
     }));
     validateField(name, value);
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsSubmitting(true);
+
+    const emailError = !/^\S+@\S+\.\S+$/.test(formValues.email) ? 'Invalid email format' : '';
+    const passwordError = !formValues.password.trim() ? 'Password is required' : '';
+    setErrors({ email: emailError, password: passwordError });
+
+    if (emailError || passwordError) {
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await instance.post<SigninResponse>('/auth/sessions', formValues);
+      toast.success(response.data.message);
+      toast.success('Logged in successfully!');
+      await navigate('/dashboard');
+    } catch (error) {
+      let errorMsg = 'Login failed';
+      if (isAxiosError<SigninResponse>(error)) {
+        const responseMessage = error.response?.data.message;
+        errorMsg = responseMessage ?? error.message;
+      } else if (error instanceof Error) {
+        errorMsg = error.message;
+      }
+      toast.error(errorMsg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   return (
     <>
       <div className={styles.signin}>
@@ -84,7 +124,12 @@ const Signin = () => {
           </div>
           <div className={styles.signin__content}>
             <p className={styles.signin__instruction}>Enter your email address to sign in</p>
-            <form onSubmit={handleSubmit} className={styles.signin__form}>
+            <form
+              onSubmit={(e) => {
+                void handleSubmit(e);
+              }}
+              className={styles.signin__form}
+            >
               <CustomInput
                 type="email"
                 name="email"
@@ -109,8 +154,8 @@ const Signin = () => {
               />
               <div className={styles.signin__terms}>
                 <div className={styles.signin__button}>
-                  <Button type="submit" variant="outlined">
-                    Get Started
+                  <Button type="submit" variant="outlined" disabled={isSubmitting}>
+                    {isSubmitting ? 'Processing...' : 'Login'}
                   </Button>
                 </div>
                 <div className={styles.signin__checkbox}>
