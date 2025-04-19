@@ -34,4 +34,6 @@ const postSchema = new mongoose.Schema<IPost>(
   { timestamps: true }
 );
 
+postSchema.index({ title: 'text', desc: 'text' });
+
 export const Post = mongoose.model<IPost>('Post', postSchema);
