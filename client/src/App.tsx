@@ -18,7 +18,7 @@ function App() {
       <div className="app-container">
         <Header />
         <Routes>
-          <Route path="/" element={''} />
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={user ? <Home /> : <Register />} />
           <Route path="/login" element={user ? <Home /> : <Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

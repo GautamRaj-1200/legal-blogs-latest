@@ -1,7 +1,113 @@
 .hero {
-  background-image: url('../../assets/gavel.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   min-height: calc(100vh - 5.75rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero__left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hero__left h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+.hero__left h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.hero__left h3 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-right: 0.2rem;
+}
+.hero__left h3 span {
+  color: var(--color-orange);
+  letter-spacing: 2px;
+  font-family: 'Pacifico';
+}
+.hero__right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hero__right-image--law,
+.hero__right-image--cricket,
+.hero__right-image--administration {
+  width: 30rem;
+  height: 30rem;
+  position: relative;
+}
+.hero__right-image--law::before,
+.hero__right-image--law::after,
+.hero__right-image--cricket::before,
+.hero__right-image--cricket::after,
+.hero__right-image--administration::before,
+.hero__right-image--administration::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  filter: blur(5rem);
+  opacity: 0.3;
+  left: 0;
+}
+.hero__right-image--law::after,
+.hero__right-image--cricket::after {
+  background: linear-gradient(var(--color-gold), #ecbf5e);
+}
+
+.hero__right-image--administration::after {
+  background: linear-gradient(#1b1edd, #4749f7);
+}
+
+@media screen and (max-width: 1200px) {
+  .hero__right-image--law,
+  .hero__right-image--cricket,
+  .hero__right-image--administration {
+    width: 20rem;
+    height: 20rem;
+    position: relative;
+  }
+}
+@media screen and (max-width: 800px) {
+  .hero {
+    flex-direction: column;
+    gap: 4rem;
+  }
+  .hero__left {
+    width: 95%;
+  }
+  .hero__right {
+    width: 95%;
+  }
+  .hero__right-image--law,
+  .hero__right-image--cricket,
+  .hero__right-image--administration {
+    width: 15rem;
+    height: 15rem;
+    position: relative;
+  }
+}
+@media screen and (max-width: 800px) {
+  .hero__left h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+  .hero__left h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .hero__left h3 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-right: 0.2rem;
+  }
 }
