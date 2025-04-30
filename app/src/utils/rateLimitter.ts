@@ -3,7 +3,7 @@ import rateLimit from 'express-rate-limit';
 
 export const otpRequestLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3, // limit each IP/email to 3 OTP requests per 15 mins
+  max: 10, // limit each IP/email to 3 OTP requests per 15 mins
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res, next, options) => {
