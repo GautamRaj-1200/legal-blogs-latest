@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import styles from './Header.module.css';
 import { Link, NavLink } from 'react-router-dom';
 import legalBlogsLogo from '../../assets/legal-blogs-by-rohan-logo.svg';
 import LinkButton from '../common/linkButton/LinkButton';
+import AuthContext from '../../contexts/auth/AuthContext';
 const Header = () => {
   const [navbarVisible, setNavbarVisible] = useState<boolean>(false);
   const navbarRef = useRef<HTMLUListElement | null>(null);
   const hamburgerRef = useRef<HTMLDivElement>(null);
-
+  const { user } = useContext(AuthContext);
   const toggleNavbar = () => {
     setNavbarVisible(!navbarVisible);
   };
@@ -94,14 +95,18 @@ const Header = () => {
                 </NavLink>
               </li>
               <li className={styles.navbar__item}>
-                <LinkButton to="/register" variant="outlined" onClick={handleLinkClick}>
-                  SignUp
-                </LinkButton>
+                {user ? null : (
+                  <LinkButton to="/register" variant="outlined" onClick={handleLinkClick}>
+                    SignUp
+                  </LinkButton>
+                )}
               </li>
               <li className={styles.navbar__item}>
-                <LinkButton to="/login" variant="primary" onClick={handleLinkClick}>
-                  Login
-                </LinkButton>
+                {user ? null : (
+                  <LinkButton to="/login" variant="primary" onClick={handleLinkClick}>
+                    Login
+                  </LinkButton>
+                )}
               </li>
             </ul>
             <div onClick={toggleNavbar} className={styles.navbar__hamburger} ref={hamburgerRef}>

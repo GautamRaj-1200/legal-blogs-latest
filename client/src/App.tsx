@@ -7,24 +7,26 @@ import Register from './page/register/Register';
 import Login from './page/login/Login';
 import PageNotFound from './page/pageNotFound/PageNotFound';
 import { ToastContainer } from 'react-toastify';
-// import Hero from './components/hero/Hero';
+import { useContext } from 'react';
+import AuthContext from './contexts/auth/AuthContext';
+import Home from './page/home/Home';
 
 function App() {
+  const { user } = useContext(AuthContext);
   return (
     <>
       <div className="app-container">
         <Header />
         <Routes>
           <Route path="/" element={''} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={user ? <Home /> : <Register />} />
+          <Route path="/login" element={user ? <Home /> : <Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-email" element={<VerifyEmailOtp />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} />
-        {/* <Hero /> */}
       </div>
     </>
   );
