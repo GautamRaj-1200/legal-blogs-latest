@@ -1,5 +1,6 @@
 import * as userRepo from '../repositories/users.repository.js';
 import { SigninInput, SignupInput } from '../schemas/users.schema.js';
+import { generateVerifyEmailTemplate } from '../templates/verifyEmailTemplate.js';
 import { ApiError } from '../utils/apiError.js';
 import { sendingEmail } from '../utils/sendOTP.js';
 import crypto from 'crypto';
@@ -18,11 +19,8 @@ export const createUser = async (data: SignupInput) => {
     try {
       const otp = crypto.randomInt(100000, 1000000);
       const otpExpiry = new Date(Date.now() + 15 * 60 * 1000);
-      const info = await sendingEmail(
-        newUser.email,
-        'Verify your email',
-        `<h3>Welcome ${newUser.firstName}!</h3><p>Your account has been created successfully. Please verify your email address. <strong>OTP:${otp}</strong></p>`
-      );
+      const html = generateVerifyEmailTemplate(newUser.firstName, otp);
+      const info = await sendingEmail(newUser.email, 'Verify your email', html);
       await userRepo.updateOtp(newUser._id, otp, otpExpiry);
       console.log(`Email sent to ${newUser.email}: ${info.response}`);
     } catch (error) {
