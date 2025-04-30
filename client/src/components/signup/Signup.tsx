@@ -7,6 +7,7 @@ import { FaUser } from 'react-icons/fa';
 import { instance } from '../../api/apiInstance';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 interface SignupResponse {
   message: string;
@@ -107,14 +108,18 @@ const Signup = () => {
     try {
       const response = await instance.post<SignupResponse>('/auth/users', formValues);
       console.log('Success:', response.data.message);
-      toast.success(response.data.message);
-      await navigate('/login');
+      toast.success(`${response.data.message}: An email has been sent to verify your email.`);
+      await navigate('/verify-email');
     } catch (error) {
       let errorMsg = 'Failed';
-      if (error instanceof Error) {
+      if (axios.isAxiosError(error)) {
+        // Safe access
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        errorMsg = error.response?.data?.message;
+        toast.error(errorMsg);
+      } else if (error instanceof Error) {
         errorMsg = error.message;
         toast.error(errorMsg);
-        console.log(`Couldn't register`, errorMsg);
       }
     } finally {
       setIsSubmitting(false);

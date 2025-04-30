@@ -3,19 +3,22 @@ import { FaUser } from 'react-icons/fa';
 import LinkButton from '../common/linkButton/LinkButton';
 import CustomInput from '../common/input/CustomInput';
 import Button from '../common/button/Button';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { instance } from '../../api/apiInstance';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { isAxiosError } from 'axios';
+import AuthContext, { User } from '../../contexts/auth/AuthContext';
 
 interface SigninResponse {
   message: string;
+  data: User;
 }
 
 const Signin = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setUser } = useContext(AuthContext);
 
   const [formValues, setFormValues] = useState({
     email: '',
@@ -90,6 +93,8 @@ const Signin = () => {
     try {
       const response = await instance.post<SigninResponse>('/auth/sessions', formValues);
       toast.success(response.data.message);
+      console.log(response);
+      setUser(response.data.data);
       await navigate('/');
     } catch (error) {
       let errorMsg = 'Login failed';
