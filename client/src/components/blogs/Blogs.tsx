@@ -5,6 +5,7 @@ const Blogs = () => {
   return (
     <>
       <div className="content-container">
+        <h1 className={styles.blogs}>Blogs</h1>
         <section className={styles.grid}>
           <div className={styles.grid__container}>
             {BLOG_CARDS.map((index) => (
@@ -14,7 +15,7 @@ const Blogs = () => {
                   imgAlt=""
                   author="Rohan"
                   date="15 Apr 2016"
-                  desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                  title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                   categories={['law', 'cricket', 'administration']}
                 />{' '}
               </div>
