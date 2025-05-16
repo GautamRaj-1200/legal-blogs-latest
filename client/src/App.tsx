@@ -12,6 +12,7 @@ import AuthContext from './contexts/auth/AuthContext';
 import Home from './page/home/Home';
 import About from './page/about/About';
 import Contact from './page/contact/Contact';
+import Write from './components/write/Write';
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -28,6 +29,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/write" element={<Write />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} />
