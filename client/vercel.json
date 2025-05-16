@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "https://legal-blogs-stage.vercel.app/$1"
+    }
+  ]
+}
