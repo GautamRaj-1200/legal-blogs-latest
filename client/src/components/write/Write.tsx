@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, useContext } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useContext, useEffect } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
@@ -13,6 +13,12 @@ interface PostResponse {
   };
 }
 
+interface CategoryResponse {
+  data: {
+    category: string[];
+  }[];
+}
+
 const Write: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -20,8 +26,22 @@ const Write: React.FC = () => {
   const [desc, setDesc] = useState<string>('');
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [categories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get<CategoryResponse>(
+          `${import.meta.env.VITE_API_URL as string}/categories/all-categories`
+        );
+        setCategories(res.data.data.map((category) => category.category[0]));
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+    void fetchCategories();
+  }, []);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);

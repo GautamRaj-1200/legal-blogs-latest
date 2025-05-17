@@ -29,7 +29,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/write" element={<Write />} />
+          <Route path="/write" element={user ? <Write /> : <Login />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} />

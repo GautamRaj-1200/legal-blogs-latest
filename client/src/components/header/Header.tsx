@@ -108,6 +108,13 @@ const Header = () => {
                   </LinkButton>
                 )}
               </li>
+              <li className={styles.navbar__item}>
+                {user ? (
+                  <LinkButton to="/write" variant="primary" onClick={handleLinkClick}>
+                    Write
+                  </LinkButton>
+                ) : null}
+              </li>
             </ul>
             <div onClick={toggleNavbar} className={styles.navbar__hamburger} ref={hamburgerRef}>
               <div
