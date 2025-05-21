@@ -6,5 +6,5 @@ export interface IPost {
   coverImage: string;
   postImages?: string[];
   author: Types.ObjectId;
-  categories: Types.ObjectId;
+  categories: Types.ObjectId[];
 }

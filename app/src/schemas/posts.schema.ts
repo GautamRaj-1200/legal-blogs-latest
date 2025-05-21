@@ -6,7 +6,9 @@ export const postSchema = z.object({
   coverImage: z.string().url('Cover image must be a valid URL'),
   postImages: z.array(z.string().url()).optional(),
   author: z.string().min(1, 'Author ID is required'),
-  categories: z.string().min(1, 'Category ID is required'),
+  categories: z
+    .array(z.string().min(1, 'Category ID is required'))
+    .min(1, 'At least one category is required'),
 });
 
 export const postUpdateSchema = postSchema.partial();

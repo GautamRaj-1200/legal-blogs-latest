@@ -1,5 +1,5 @@
-import { Post } from '../models/posts.model';
-import { IPost } from '../types/posts.types';
+import { Post } from '../models/posts.model.js';
+import { IPost } from '../types/posts.types.js';
 import { FilterQuery, SortOrder } from 'mongoose';
 
 export const createPost = async (data: IPost) => {

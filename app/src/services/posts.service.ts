@@ -1,7 +1,7 @@
 import { FilterQuery, SortOrder } from 'mongoose';
 import * as postRepo from '../repositories/posts.repository.js';
 import { IPost } from '../types/posts.types';
-import { ApiError } from '../utils/apiError';
+import { ApiError } from '../utils/apiError.js';
 
 interface FindPostsOptions {
   sort?: Record<string, SortOrder>;

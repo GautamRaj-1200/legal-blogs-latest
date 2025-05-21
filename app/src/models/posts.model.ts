@@ -6,6 +6,7 @@ const postSchema = new mongoose.Schema<IPost>(
     title: {
       type: String,
       required: true,
+      unique: true,
       trim: true,
     },
     desc: {
@@ -25,11 +26,13 @@ const postSchema = new mongoose.Schema<IPost>(
       ref: 'User',
       required: true,
     },
-    categories: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
-      required: true,
-    },
+    categories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true,
+      },
+    ],
   },
   { timestamps: true }
 );

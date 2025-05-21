@@ -50,7 +50,7 @@ const userSchema = new mongoose.Schema<IUser>(
     role: {
       type: String,
       enum: ['viewer', 'author', 'admin'],
-      default: 'viewer',
+      default: 'author',
     },
   },
   { timestamps: true }
