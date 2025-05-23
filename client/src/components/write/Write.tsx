@@ -1,12 +1,12 @@
 import React, { useState, ChangeEvent, FormEvent, useContext, useEffect } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill/dist/quill.snow.css';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/auth/AuthContext';
 import styles from './Write.module.css';
 import CustomInput from '../common/input/CustomInput';
 import Button from '../common/button/Button';
+import { instance } from '../../api/apiInstance';
 interface PostResponse {
   data: {
     _id: string;
@@ -14,9 +14,11 @@ interface PostResponse {
 }
 
 interface CategoryResponse {
-  data: {
-    category: string[];
-  }[];
+  data: Category[];
+}
+
+interface Category {
+  categoryName: string;
 }
 
 const Write: React.FC = () => {
@@ -32,10 +34,9 @@ const Write: React.FC = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get<CategoryResponse>(
-          `${import.meta.env.VITE_API_URL as string}/categories/all-categories`
-        );
-        setCategories(res.data.data.map((category) => category.category[0]));
+        const res = await instance.get<CategoryResponse>('/categories/all-categories');
+        console.log(res.data.data[0].categoryName);
+        setCategories(res.data.data.map((category) => category.categoryName));
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
@@ -85,13 +86,11 @@ const Write: React.FC = () => {
     }
 
     try {
-      const res = await axios.post<PostResponse>(
-        String(import.meta.env.VITE_API_URL) + '/posts/create',
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await instance.post<PostResponse>('/posts/post', formData, {
+        headers: {
+          'Content-Type': undefined,
+        },
+      });
       const postId = res.data.data._id;
       if (typeof postId === 'string') {
         void navigate(`/posts/post/${postId}`);
@@ -130,17 +129,25 @@ const Write: React.FC = () => {
                 className={styles.write__file__input}
               />
             </div>
-            <div>
-              {categories.map((category) => (
-                <span
-                  key={category}
-                  onClick={() => {
-                    handleCategoryToggle(category);
-                  }}
-                >
-                  {category}
-                </span>
-              ))}
+            <div className={styles.write__categories__container}>
+              {/* <h3 className={styles.write__categories__heading}>Categories</h3> */}
+              <div className={styles.write__categories__list}>
+                {categories.map((category) => (
+                  <span
+                    key={category}
+                    className={`${styles.write__category__item} ${
+                      selectedCategories.includes(category)
+                        ? styles.write__category__item_selected
+                        : ''
+                    }`}
+                    onClick={() => {
+                      handleCategoryToggle(category);
+                    }}
+                  >
+                    {category}
+                  </span>
+                ))}
+              </div>
             </div>
             <div className={styles.write__quill__container}>
               <ReactQuill

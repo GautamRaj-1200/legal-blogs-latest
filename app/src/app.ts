@@ -24,9 +24,12 @@ app.get('/health', (req: Request, res: Response) => {
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/users.routes.js';
 import postRoutes from './routes/posts.routes.js';
+import categoryRoutes from './routes/categories.routes.js';
+
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/posts', postRoutes);
+app.use('/api/v1/categories', categoryRoutes);
 
 app.use(errorHandler);
 

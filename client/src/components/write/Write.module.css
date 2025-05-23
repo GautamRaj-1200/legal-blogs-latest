@@ -20,3 +20,46 @@
 .write__button__container {
   margin-top: 2rem;
 }
+
+.write__categories__container {
+  margin-bottom: 20px;
+}
+
+.write__categories__heading {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.write__categories__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.write__category__item {
+  padding: 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 0.9em;
+  background-color: #f9f9f9;
+  color: #555;
+}
+
+.write__category__item:hover {
+  border-color: #aaa;
+  background-color: #f0f0f0;
+}
+
+.write__category__item_selected {
+  background-color: #007bff; /* Or your primary theme color */
+  color: white;
+  border-color: #007bff; /* Or your primary theme color */
+}
+
+.write__category__item_selected:hover {
+  background-color: #0056b3; /* Darker shade for hover */
+  border-color: #0056b3;
+}

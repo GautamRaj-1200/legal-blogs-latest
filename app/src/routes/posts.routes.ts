@@ -10,9 +10,9 @@ const upload = multer({ storage });
 
 router.post(
   '/post',
+  upload.single('coverImage'),
   authenticateUser,
   authorizeRoles('author'),
-  upload.single('coverImage'),
   createPost
 );
 

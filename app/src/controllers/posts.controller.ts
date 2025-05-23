@@ -19,6 +19,9 @@ interface FindPostsOptions {
 export const createPost = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
   const { title, desc, categories } = req.body;
 
+  console.log(req.body);
+  console.log(req.file);
+
   if (!req.file) {
     ApiResponse.error('Cover image is required', 400).send(res);
     return;

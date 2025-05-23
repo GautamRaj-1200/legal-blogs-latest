@@ -23,14 +23,14 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
     .cookie('accessToken', accessToken, {
       httpOnly: true,
       secure: config.ENV === 'production', // only on HTTPS in production
-      sameSite: 'none',
-      maxAge: 60 * 1000, // 1 min
+      sameSite: config.ENV === 'production' ? 'none' : 'lax',
+      maxAge: 15 * 60 * 1000, // 15 min
     })
     .cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: config.ENV === 'production', // only on HTTPS in production
-      sameSite: 'none',
-      maxAge: 2 * 60 * 1000, // 1 day
+      sameSite: config.ENV === 'production' ? 'none' : 'lax',
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
   ApiResponse.success(loggedInUser, 'Login successful', 200).send(res);
@@ -42,9 +42,9 @@ export const newAccessToken = asyncHandler(async (req: AuthenticatedRequest, res
   const accessToken = await refreshAccessToken(userId);
   res.cookie('accessToken', accessToken, {
     httpOnly: true,
-    secure: config.ENV === 'production', // only on HTTPS in production
-    sameSite: 'none',
-    maxAge: 60 * 1000, // 1 min
+    secure: config.ENV === 'production',
+    sameSite: config.ENV === 'production' ? 'none' : 'lax',
+    maxAge: 15 * 60 * 1000, // 15 min
   });
   ApiResponse.success(null, 'Access Token refreshed successfully', 200).send(res);
 });
