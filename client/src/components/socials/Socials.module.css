@@ -1,0 +1,9 @@
+.socials-logo-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.socials-logo {
+  width: 3rem;
+  height: 3rem;
+}

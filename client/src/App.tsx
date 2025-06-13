@@ -13,6 +13,7 @@ import Home from './page/home/Home';
 import About from './page/about/About';
 import Contact from './page/contact/Contact';
 import Write from './components/write/Write';
+import Footer from './components/footer/Footer';
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -32,6 +33,7 @@ function App() {
           <Route path="/write" element={user ? <Write /> : <Login />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
+        <Footer />
         <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </>

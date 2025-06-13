@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 38rem;
 }
 
 .contact__socials {
@@ -16,14 +17,4 @@
   color: var(--color-orange);
   font-family: 'Pacifico';
   font-size: 2.5rem;
-}
-
-.contact__socials-logo-wrapper {
-  display: flex;
-  gap: 1rem;
-}
-
-.contact__socials-logo {
-  width: 3rem;
-  height: 3rem;
 }
