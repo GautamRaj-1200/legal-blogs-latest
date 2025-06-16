@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createPost } from '../controllers/posts.controller.js';
+import { createPost, findPostById, findPosts } from '../controllers/posts.controller.js';
 import { authenticateUser } from '../middlewares/auth.middleware.js';
 import { authorizeRoles } from '../middlewares/roles.middleware.js';
 const router = Router();
@@ -15,5 +15,8 @@ router.post(
   authorizeRoles('author'),
   createPost
 );
+
+router.get('/post/:id', findPostById);
+router.get('/', findPosts);
 
 export default router;
