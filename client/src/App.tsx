@@ -14,6 +14,7 @@ import About from './page/about/About';
 import Contact from './page/contact/Contact';
 import Write from './components/write/Write';
 import Footer from './components/footer/Footer';
+import Post from './page/post/Post';
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -31,6 +32,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/write" element={user ? <Write /> : <Login />} />
+          <Route path="/posts/post/:id" element={<Post />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />

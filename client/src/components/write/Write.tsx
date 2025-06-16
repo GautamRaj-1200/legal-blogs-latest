@@ -1,12 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent, useContext, useEffect } from 'react';
-import ReactQuill from 'react-quill-new';
-import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/auth/AuthContext';
 import styles from './Write.module.css';
 import CustomInput from '../common/input/CustomInput';
 import Button from '../common/button/Button';
 import { instance } from '../../api/apiInstance';
+import Wysiwyg from '../wysiwyg/Wysiwyg';
+import { toast } from 'react-toastify';
+
 interface PostResponse {
   data: {
     _id: string;
@@ -35,10 +36,10 @@ const Write: React.FC = () => {
     const fetchCategories = async () => {
       try {
         const res = await instance.get<CategoryResponse>('/categories/all-categories');
-        console.log(res.data.data[0].categoryName);
         setCategories(res.data.data.map((category) => category.categoryName));
       } catch (error) {
         console.error('Error fetching categories:', error);
+        toast.error('Failed to fetch categories');
       }
     };
     void fetchCategories();
@@ -48,8 +49,8 @@ const Write: React.FC = () => {
     setTitle(e.target.value);
   };
 
-  const handleDescChange = (value: string) => {
-    setDesc(value);
+  const handleDescChange = (content: string) => {
+    setDesc(content);
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +71,22 @@ const Write: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!title.trim()) {
+      toast.error('Title is required');
+      return;
+    }
+
+    if (!desc.trim()) {
+      toast.error('Content is required');
+      return;
+    }
+
+    if (selectedCategories.length === 0) {
+      toast.error('Please select at least one category');
+      return;
+    }
+
     setLoading(true);
 
     const formData = new FormData();
@@ -93,10 +110,12 @@ const Write: React.FC = () => {
       });
       const postId = res.data.data._id;
       if (typeof postId === 'string') {
+        toast.success('Post published successfully!');
         void navigate(`/posts/post/${postId}`);
       }
     } catch (err) {
-      console.log(err);
+      console.error('Error publishing post:', err);
+      toast.error('Failed to publish post. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -130,7 +149,6 @@ const Write: React.FC = () => {
               />
             </div>
             <div className={styles.write__categories__container}>
-              {/* <h3 className={styles.write__categories__heading}>Categories</h3> */}
               <div className={styles.write__categories__list}>
                 {categories.map((category) => (
                   <span
@@ -150,12 +168,7 @@ const Write: React.FC = () => {
               </div>
             </div>
             <div className={styles.write__quill__container}>
-              <ReactQuill
-                theme="snow"
-                value={desc}
-                onChange={handleDescChange}
-                className={styles.write__quill}
-              />
+              <Wysiwyg setContent={handleDescChange} />
             </div>
             <div className={styles.write__button__container}>
               <Button type="submit" disabled={loading}>

@@ -1,23 +1,100 @@
+import { useEffect, useState } from 'react';
 import styles from './Blogs.module.css';
 import BlogCard from '../blogCard/BlogCard';
+import { instance } from '../../api/apiInstance';
+
+interface Category {
+  _id: string;
+  categoryName: string;
+}
+
+interface Post {
+  _id: string;
+  title: string;
+  desc: string;
+  coverImage: string;
+  author: {
+    firstName: string;
+    lastName: string;
+  };
+  categories: Category[];
+  createdAt: string;
+}
+
+interface PostsResponse {
+  success: boolean;
+  message: string;
+  data: {
+    data: Post[];
+    total: number;
+    page: number;
+    totalPages: number;
+  };
+}
+
 const Blogs = () => {
-  const BLOG_CARDS = Array.from({ length: 8 }, (_, index) => index);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await instance.get<PostsResponse>('/posts');
+        if (response.data.success) {
+          setPosts(response.data.data.data);
+        } else {
+          setError('Failed to load posts');
+        }
+      } catch (err) {
+        console.error('Error fetching posts:', err);
+        setError('Failed to load posts');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void fetchPosts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="content-container">
+        <div className={styles.loading}>
+          <div className={styles.spinner}></div>
+          <p>Loading posts...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="content-container">
+        <div className={styles.error}>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="content-container">
         <h1 className={styles.blogs}>Blogs</h1>
         <section className={styles.grid}>
           <div className={styles.grid__container}>
-            {BLOG_CARDS.map((index) => (
-              <div className={styles.grid__item} key={index}>
+            {posts.map((post) => (
+              <div className={styles.grid__item} key={post._id}>
                 <BlogCard
-                  imgSrc="https://images.unsplash.com/photo-1743076851851-0762b336b56d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8"
-                  imgAlt=""
-                  author="Rohan"
-                  date="15 Apr 2016"
-                  title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                  categories={['law', 'cricket', 'administration']}
-                />{' '}
+                  imgSrc={post.coverImage}
+                  imgAlt={post.title}
+                  author={`${post.author.firstName} ${post.author.lastName}`}
+                  date={new Date(post.createdAt).toLocaleDateString()}
+                  title={post.title}
+                  categories={post.categories.map((cat) => cat.categoryName)}
+                  postId={post._id}
+                />
               </div>
             ))}
           </div>
@@ -26,4 +103,5 @@ const Blogs = () => {
     </>
   );
 };
+
 export default Blogs;
