@@ -88,7 +88,10 @@ const Post = () => {
         </header>
         {post.coverImage && (
           <div className={styles.coverImage}>
-            <img src={post.coverImage} alt={post.title} />
+            <img
+              src={`https://legal-blogs.s3.eu-north-1.amazonaws.com/${post.coverImage}`}
+              alt={post.title}
+            />
           </div>
         )}
         <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.desc }} />
