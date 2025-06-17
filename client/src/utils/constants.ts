@@ -19,3 +19,5 @@ export const navLinksText = {
   PRIVACY: 'Privacy & Policy',
   TERMS: 'Terms & Conditions',
 };
+
+export const AWS_URL = 'https://legal-blogs.s3.eu-north-1.amazonaws.com';

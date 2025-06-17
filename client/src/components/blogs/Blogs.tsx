@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './Blogs.module.css';
 import BlogCard from '../blogCard/BlogCard';
 import { instance } from '../../api/apiInstance';
+import { AWS_URL } from '../../utils/constants';
 
 interface Category {
   _id: string;
@@ -87,10 +88,14 @@ const Blogs = () => {
             {posts.map((post) => (
               <div className={styles.grid__item} key={post._id}>
                 <BlogCard
-                  imgSrc={post.coverImage}
+                  imgSrc={`${AWS_URL}/${post.coverImage}`}
                   imgAlt={post.title}
                   author={`${post.author.firstName} ${post.author.lastName}`}
-                  date={new Date(post.createdAt).toLocaleDateString()}
+                  date={new Date(post.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
                   title={post.title}
                   categories={post.categories.map((cat) => cat.categoryName)}
                   postId={post._id}
