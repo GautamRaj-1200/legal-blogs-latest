@@ -1,11 +1,11 @@
-import config from "./config/config.js";
-import app from "./app.js";
-import connectDB from "./db/connection.js";
+import config from './config/config.js';
+import app from './app.js';
+import connectDB from './db/connection.js';
 
 connectDB()
   .then(() => {
-    app.on("error", (error) => {
-      console.log("ERR: ", error);
+    app.on('error', (error: unknown) => {
+      console.log('ERR: ', error);
       throw error;
     });
     app.listen(config.PORT, () => {
@@ -13,5 +13,5 @@ connectDB()
     });
   })
   .catch((err) => {
-    console.log("Mongo DB connection failed!!!!!", err);
+    console.log('Mongo DB connection failed!!!!!', err);
   });

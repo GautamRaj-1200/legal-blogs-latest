@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { IUser } from '../types/users.types.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 
