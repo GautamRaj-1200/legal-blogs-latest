@@ -8,7 +8,7 @@ connectDB()
       console.log('ERR: ', error);
       throw error;
     });
-    app.listen(config.PORT, () => {
+    app.listen(Number(config.PORT), '0.0.0.0', () => {
       console.log(`Server is running on port ${config.PORT}`);
     });
   })
