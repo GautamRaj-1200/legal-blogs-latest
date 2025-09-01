@@ -1,0 +1,27 @@
+name: Deploy Backend to Digital Ocean
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Digital Ocean
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/deploy/projects/legal-blogs-latest
+            git pull origin main
+            cd app
+            pnpm install
+            pnpm run build
+            pm2 restart legal-blogs-api
