@@ -2,7 +2,7 @@ name: Deploy Backend to Digital Ocean
 
 on:
   push:
-    branches: [main]
+    branches: [stage-view]
     paths:
       - "app/**"
 
