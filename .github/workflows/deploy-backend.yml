@@ -5,6 +5,7 @@ on:
     branches: [stage-view]
     paths:
       - "app/**"
+      - ".github/workflows/**"
 
 jobs:
   deploy:
