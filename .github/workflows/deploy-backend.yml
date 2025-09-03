@@ -20,8 +20,9 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/deploy/projects/legal-blogs-latest
-            git pull origin main
+            git pull origin stage-view
             cd app
+            export PATH="/home/deploy/.npm-global/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
             pnpm install
             pnpm run build
             pm2 restart legal-blogs-api
