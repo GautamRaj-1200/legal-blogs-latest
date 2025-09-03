@@ -175,7 +175,9 @@ export const resetPasswordService = async (email: string, otp: number, newPasswo
   const user = await userRepo.findByEmail(email);
   const now = new Date();
 
-  if (!user || user.otp !== otp || !user.otpExpiry || user.otpExpiry < now) {
+  if (!user || user.otp !== Number(otp) || !user.otpExpiry || user.otpExpiry < now) {
+    console.log(user?.otp, 'OTP: ', otp);
+    console.log(user?.otpExpiry, 'NOW: ', now);
     throw new ApiError(403, 'Invalid or expired OTP');
   }
 
